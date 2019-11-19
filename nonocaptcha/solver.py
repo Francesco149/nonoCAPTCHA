@@ -46,7 +46,8 @@ class Solver(Base):
         self.options = merge_dict(options, kwargs)
         self.url = pageurl
         self.sitekey = sitekey
-        self.loop = loop or asyncio.get_event_loop()
+        self.loop = loop or util.get_event_loop()
+        self.options["loop"] = self.loop
         self.proxy = f"http://{proxy}" if proxy else proxy
         self.proxy_auth = proxy_auth
         self.enable_injection = enable_injection

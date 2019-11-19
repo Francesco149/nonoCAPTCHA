@@ -18,6 +18,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 __all__ = [
+    "get_event_loop",
     "save_file",
     "load_file",
     "get_page",
@@ -32,6 +33,12 @@ def threaded(func):
         loop = asyncio.get_event_loop()
         return await loop.run_in_executor(None, partial(func, *args, **kwargs))
     return wrap
+
+
+def get_event_loop():
+    if sys.platform == "win32":
+        return asyncio.ProactorEventLoop()
+    return asyncio.new_event_loop()
 
 
 async def save_file(file, data, binary=False):

@@ -10,16 +10,16 @@ else:
     sys.exit(0)
 
 
-loop = asyncio.get_event_loop()
 options = {
     "headless": False,
     "ignoreHTTPSErrors": True,
-    "args": ["--timeout 5"]}
+    "args": ["--timeout 5"],
+}
 if proxy.lower() == "none":
     proxy = None
 client = Solver(pageurl, sitekey, options=options, proxy=proxy)
 try:
-    result = loop.run_until_complete(client.start())
+    result = client.loop.run_until_complete(client.start())
 except asyncio.CancelledError:
     raise
 else:
