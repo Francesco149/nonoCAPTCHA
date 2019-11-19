@@ -36,7 +36,7 @@ class Solver(Base):
         proxy_auth=None,
         options={},
         enable_injection=True,  # Required for pages that don't initially
-                                # render the widget.
+                                # render the widget. BROKEN, this is a noop
         retain_source=True,  # Pre-load page source and insert widget code.
                              # Useful for bypassing high-security thresholds.
                              # This can cause problems if the page has a widget
@@ -62,10 +62,10 @@ class Solver(Base):
         try:
             self.browser = await self.get_new_browser()
             self.page = await self.browser.newPage()
-            if self.should_block_images:
-                await self.block_images()
-            if self.enable_injection:
-                await self.inject_widget()
+            # TODO: interception is broken. no idea why. it just makes
+            #       some requests hang forever
+            #if self.enable_injection:
+            #    await self.inject_widget()
             if self.proxy_auth:
                 await self.page.authenticate(self.proxy_auth)
             self.log(f"Starting solver with proxy {self.proxy}")
@@ -97,7 +97,7 @@ class Solver(Base):
             return source[:body_index] + widget_code + source[body_index:]
 
         async def handle_request(request):
-            if (request.url == self.url):
+            if request.url == self.url:
                 if self.retain_source:
                     source = await util.get_page(self.url)
                     filters = ['grecaptcha.render', 'g-recaptcha']
@@ -109,21 +109,14 @@ class Solver(Base):
                     'status': 200,
                     'contentType': 'text/html',
                     'body': source})
+            elif self.should_block_images and request.resourceType == 'image':
+                await request.abort()
             else:
                 await request.continue_()
         recaptcha_source = "https://www.google.com/recaptcha/api.js?hl=en"
         script_tag = (f"<script src={recaptcha_source} async defer></script>")
         widget_code = (f"<div class=g-recaptcha data-sitekey={self.sitekey}>"
                        "</div>")
-        await self.enable_interception()
-        self.page.on('request', handle_request)
-
-    async def block_images(self):
-        async def handle_request(request):
-            if (request.resourceType == 'image'):
-                await request.abort()
-            else:
-                await request.continue_()
         await self.enable_interception()
         self.page.on('request', handle_request)
 
