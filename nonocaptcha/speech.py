@@ -18,6 +18,7 @@ import requests
 from datetime import datetime
 from uuid import uuid4
 from pydub import AudioSegment
+import pocketsphinx
 from pocketsphinx.pocketsphinx import Decoder
 
 from nonocaptcha.base import settings
@@ -59,7 +60,10 @@ class DeepSpeech(object):
 
 
 class Sphinx(object):
-    MODEL_DIR = settings["speech"]["pocketsphinx"]["model_dir"]
+    MODEL_DIR = os.path.dirname(pocketsphinx.__file__)
+    MODEL_DIR = os.path.join(MODEL_DIR, "model")
+    if not os.path.isdir(MODEL_DIR):
+        MODEL_DIR = settings["speech"]["pocketsphinx"]["model_dir"]
 
     async def build_decoder(self):
         config = Decoder.default_config()
