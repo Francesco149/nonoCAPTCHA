@@ -24,8 +24,7 @@ from nonocaptcha.base import settings
 from nonocaptcha import util
 
 
-@util.threaded
-def mp3_to_wav(mp3_filename):
+async def mp3_to_wav(mp3_filename):
     wav_filename = mp3_filename.replace(".mp3", ".wav")
     segment = AudioSegment.from_mp3(mp3_filename)
     sound = segment.set_channels(1).set_frame_rate(16000)
@@ -62,8 +61,7 @@ class DeepSpeech(object):
 class Sphinx(object):
     MODEL_DIR = settings["speech"]["pocketsphinx"]["model_dir"]
 
-    @util.threaded
-    def build_decoder(self):
+    async def build_decoder(self):
         config = Decoder.default_config()
         config.set_string(
             "-dict", os.path.join(self.MODEL_DIR, "cmudict-en-us.dict")
@@ -184,8 +182,7 @@ class AzureSpeech(object):
     SUB_KEY = settings["speech"]["azurespeech"]["subscription_key"]
     language_type = settings["speech"]["azurespeech"]['language_type']
 
-    @util.threaded
-    def extract_json_body(self, response):
+    async def extract_json_body(self, response):
         return json.loads(response)
 
     async def bytes_from_file(self, filename):
@@ -239,16 +236,14 @@ class AzureSpeech(object):
 class Azure(object):
     SUB_KEY = settings["speech"]["azure"]["api_subkey"]
 
-    @util.threaded
-    def extract_json_body(self, response):
+    async def extract_json_body(self, response):
         pattern = "^\r\n"  # header separator is an empty line
         m = re.search(pattern, response, re.M)
         return json.loads(
             response[m.end():]
         )  # assuming that content type is json
 
-    @util.threaded
-    def build_message(self, req_id, payload):
+    async def build_message(self, req_id, payload):
         message = b""
         timestamp = datetime.utcnow().isoformat()
         header = (

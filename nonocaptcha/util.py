@@ -22,18 +22,8 @@ __all__ = [
     "save_file",
     "load_file",
     "get_page",
-    "threaded",
     "serialize",
     "deserialize"]
-
-
-def threaded(func):
-    @wraps(func)
-    async def wrap(*args, **kwargs):
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(None, partial(func, *args, **kwargs))
-    return wrap
-
 
 def get_event_loop():
     if sys.platform == "win32":
@@ -53,8 +43,7 @@ async def load_file(file, binary=False):
         return await f.read()
 
 
-@threaded
-def get_page_win(
+async def get_page_win(
         url,
         proxy=None,
         proxy_auth=None,
