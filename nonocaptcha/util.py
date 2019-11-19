@@ -79,7 +79,7 @@ async def get_page(
         binary=False,
         verify=False,
         timeout=300):
-    if sys.platform != "win32":
+    if sys.platform == "win32":
         # SSL Doesn't work on aiohttp through ProactorLoop so we use Requests
         return await get_page_win(
             url, proxy, proxy_auth, binary, verify, timeout)
