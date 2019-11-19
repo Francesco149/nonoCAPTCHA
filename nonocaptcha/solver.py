@@ -10,7 +10,7 @@ import time
 import traceback
 
 from pyppeteer.util import merge_dict
-from user_agent import generate_navigator_js
+import fuckcaptcha as fucking
 
 from nonocaptcha import util
 from nonocaptcha.base import Base
@@ -178,26 +178,6 @@ class Solver(Base):
         browser = await self.launcher.launch()
         return browser
 
-    async def cloak_navigator(self):
-        """Emulate another browser's navigator properties and set webdriver
-           false, inject jQuery.
-        """
-        jquery_js = await util.load_file(self.jquery_data)
-        override_js = await util.load_file(self.override_data)
-        navigator_config = generate_navigator_js(
-            os=("linux", "mac", "win"), navigator=("chrome"))
-        navigator_config["mediaDevices"] = False
-        navigator_config["webkitGetUserMedia"] = False
-        navigator_config["mozGetUserMedia"] = False
-        navigator_config["getUserMedia"] = False
-        navigator_config["webkitRTCPeerConnection"] = False
-        navigator_config["webdriver"] = False
-        dump = json.dumps(navigator_config)
-        _navigator = f"const _navigator = {dump};"
-        await self.page.evaluateOnNewDocument(
-            "() => {\n%s\n%s\n%s}" % (_navigator, jquery_js, override_js))
-        return navigator_config["userAgent"]
-
     async def deface(self):
         """ ***DEPRECATED***
         Create a DIV element and append to current body for explicit loading
@@ -242,8 +222,9 @@ class Solver(Base):
 
     async def goto(self):
         """Navigate to address"""
-        user_agent = await self.cloak_navigator()
-        await self.page.setUserAgent(user_agent)
+        jquery_js = await util.load_file(self.jquery_data)
+        await self.page.evaluateOnNewDocument("() => {\n%s}" % jquery_js)
+        await fucking.bypass_detections(self.page)
         try:
             await self.loop.create_task(
                 self.page.goto(
