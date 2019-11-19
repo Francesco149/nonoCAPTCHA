@@ -9,9 +9,9 @@ import sys
 
 from async_timeout import timeout
 
-from nonocaptcha import util
-from nonocaptcha.proxy import ProxyDB
-from nonocaptcha.solver import Solver
+from nonocaptcha_fork import util
+from nonocaptcha_fork.proxy import ProxyDB
+from nonocaptcha_fork.solver import Solver
 
 threads = 1  # Max browsers to open
 sort_position = False

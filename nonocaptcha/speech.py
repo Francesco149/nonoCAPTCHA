@@ -21,8 +21,8 @@ from pydub import AudioSegment
 import pocketsphinx
 from pocketsphinx.pocketsphinx import Decoder
 
-from nonocaptcha.base import settings
-from nonocaptcha import util
+from nonocaptcha_fork.base import settings
+from nonocaptcha_fork import util
 
 
 async def mp3_to_wav(mp3_filename):

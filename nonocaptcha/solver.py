@@ -12,13 +12,13 @@ import traceback
 from pyppeteer.util import merge_dict
 import fuckcaptcha as fucking
 
-from nonocaptcha import util
-from nonocaptcha.base import Base
-from nonocaptcha.audio import SolveAudio
-from nonocaptcha.image import SolveImage
-from nonocaptcha.launcher import Launcher
-from nonocaptcha.exceptions import (SafePassage, ButtonError, IframeError,
-                                    PageError)
+from nonocaptcha_fork import util
+from nonocaptcha_fork.base import Base
+from nonocaptcha_fork.audio import SolveAudio
+from nonocaptcha_fork.image import SolveImage
+from nonocaptcha_fork.launcher import Launcher
+from nonocaptcha_fork.exceptions import (SafePassage, ButtonError, IframeError,
+                                         PageError)
 
 
 class Solver(Base):

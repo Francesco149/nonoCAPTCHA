@@ -8,8 +8,8 @@ import logging
 import os
 import random
 
-from nonocaptcha import package_dir
-from nonocaptcha.exceptions import SafePassage, TryAgain
+from nonocaptcha_fork import package_dir
+from nonocaptcha_fork.exceptions import SafePassage, TryAgain
 
 FORMAT = "%(asctime)s %(message)s"
 logging.basicConfig(format=FORMAT)

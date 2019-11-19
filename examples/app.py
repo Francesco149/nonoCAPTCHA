@@ -19,9 +19,9 @@ from functools import partial
 from pathlib import Path
 from threading import RLock
 
-from nonocaptcha import util
-from nonocaptcha.proxy import ProxyDB
-from nonocaptcha.solver import Solver
+from nonocaptcha_fork import util
+from nonocaptcha_fork.proxy import ProxyDB
+from nonocaptcha_fork.solver import Solver
 
 SECRET_KEY = "CHANGEME"
 BANNED_TIMEOUT = 45*60  # 45 minutes

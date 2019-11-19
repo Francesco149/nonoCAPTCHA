@@ -9,9 +9,9 @@ import threading
 from PIL import Image
 from http.server import HTTPServer, BaseHTTPRequestHandler
 
-from nonocaptcha import util
-from nonocaptcha.base import Base, settings
-from nonocaptcha import package_dir
+from nonocaptcha_fork import util
+from nonocaptcha_fork.base import Base, settings
+from nonocaptcha_fork import package_dir
 
 PICTURES = os.path.join(package_dir, settings['data']['pictures'])
 

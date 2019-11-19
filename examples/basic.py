@@ -1,7 +1,7 @@
 import asyncio
 import sys
 
-from nonocaptcha.solver import Solver
+from nonocaptcha_fork.solver import Solver
 
 if len(sys.argv) == 4:
     pageurl, sitekey, proxy = sys.argv[1:]

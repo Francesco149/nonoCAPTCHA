@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 from importlib.machinery import SourceFileLoader
 
 
-module_name = "nonocaptcha"
+module_name = "nonocaptcha_fork"
 
 module = SourceFileLoader(
     module_name, os.path.join(module_name, "__init__.py")
@@ -24,7 +24,7 @@ setup(
     author_email=module.authors_email,
     license=module.__license__,
     description=module.package_info,
-    url="https://github.com/mikeyy/nonoCAPTCHA",
+    url="https://github.com/Francesco149/nonoCAPTCHA",
     long_description=open("README.rst").read(),
     platforms="all",
     classifiers=[

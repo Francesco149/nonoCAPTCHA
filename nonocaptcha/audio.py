@@ -10,10 +10,10 @@ import tempfile
 from asyncio import TimeoutError, CancelledError
 from aiohttp.client_exceptions import ClientError
 
-from nonocaptcha import util
-from nonocaptcha.speech import Amazon, Azure, Sphinx, DeepSpeech, AzureSpeech
-from nonocaptcha.base import Base
-from nonocaptcha.exceptions import DownloadError, ReloadError, TryAgain
+from nonocaptcha_fork import util
+from nonocaptcha_fork.speech import Amazon, Azure, Sphinx, DeepSpeech, AzureSpeech
+from nonocaptcha_fork.base import Base
+from nonocaptcha_fork.exceptions import DownloadError, ReloadError, TryAgain
 
 
 class SolveAudio(Base):
