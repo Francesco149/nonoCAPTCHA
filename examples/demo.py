@@ -9,7 +9,8 @@ auth_details = {"username": "user", "password": "pass"}
 args = ["--timeout 5"]
 options = {"ignoreHTTPSErrors": True, "args": args}
 client = Solver(
-    pageurl, sitekey, options=options, proxy=proxy, proxy_auth=auth_details
+    pageurl, sitekey, options=options,
+    #proxy=proxy, proxy_auth=auth_details,
 )
 
 solution = client.loop.run_until_complete(client.start())
