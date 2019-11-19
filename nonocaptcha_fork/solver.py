@@ -9,7 +9,7 @@ import sys
 import time
 import traceback
 
-from pyppeteer.util import merge_dict
+from pyppeteer_fork.util import merge_dict
 import fuckcaptcha as fucking
 
 from nonocaptcha_fork import util

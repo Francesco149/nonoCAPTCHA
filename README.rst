@@ -1,3 +1,42 @@
+this is my own fork of nonoCAPTCHA. it is updated to bypass the new
+browser checks as of 2019-11-19
+
+changes:
+
+- uses my fork of pyppeteer which uses a newer version of chrome
+- had to disable widget injection because puppeteer request interception
+  doesn't work anymore and hangs. no idea how to fix at the moment
+- fix "request already handled" error spam (useless until request
+  interception is fixed)
+- replace old cloaking code with the up to date methods from
+  https://github.com/berstend/puppeteer-extra/tree/master/packages/puppeteer-extra-plugin-stealth
+- automatically discover pocketsphinx model
+- remove old launcher workarounds and use latest pyppeteer instead
+- fix various issues with async code using multiple conflicting loops
+- fix win32 not working unless ProactorEventLoop is manually specified
+- fix custom loop not propagating to pyppeteer
+- fix get_page_win win32 check being reversed (useless until request
+  interception is fixed)
+
+usage
+==========
+
+.. code:: shell
+
+    pip install nonocaptcha_fork
+
+
+.. code:: shell
+
+    git clone https://github.com/Francesco149/nonoCAPTCHA
+    cd nonoCAPTCHA/examples
+    python demo.py
+
+
+old readme
+==========
+
+
 .. image:: https://travis-ci.org/mikeyy/nonoCAPTCHA.svg?branch=master
     :target: https://travis-ci.org/mikeyy/nonoCAPTCHA
 .. image:: https://img.shields.io/pypi/v/nonocaptcha.svg
