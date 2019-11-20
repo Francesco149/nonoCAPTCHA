@@ -1,7 +1,7 @@
 this is my own fork of nonoCAPTCHA. it is updated to bypass the new
 browser checks as of 2019-11-19
 
-.. figure:: https://github.com/Francesco149/nonoCAPTCHA/blob/master/nonocaptcha.gif
+.. figure:: https://github.com/Francesco149/nonoCAPTCHA/blob/fork/nonocaptcha.gif
    :alt: nonoCAPTCHA preview
 
 changes:
