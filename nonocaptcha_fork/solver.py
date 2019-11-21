@@ -11,6 +11,7 @@ import traceback
 
 from pyppeteer_fork.util import merge_dict
 import fuckcaptcha as fucking
+import random
 
 from nonocaptcha_fork import util
 from nonocaptcha_fork.base import Base
@@ -274,6 +275,9 @@ class Solver(Base):
                 self.proxy_auth,
                 self.proc_id)
             await self.loop.create_task(self.wait_for_audio_button())
+            for _ in range(int(random.uniform(3, 6))):
+                await self.click_tile()
+            await asyncio.sleep(random.uniform(1, 2))
             result = await self.click_audio_button()
             if isinstance(result, dict):
                 if result["status"] == "detected":
@@ -303,6 +307,11 @@ class Solver(Base):
         self.log("Clicking checkbox")
         checkbox = await self.checkbox_frame.J("#recaptcha-anchor")
         await self.click_button(checkbox)
+
+    async def click_tile(self):
+        self.log("Clicking random tile")
+        tiles = await self.image_frame.JJ(".rc-imageselect-tile")
+        await self.click_button(random.choice(tiles))
 
     async def wait_for_audio_button(self):
         """Wait for audio button to appear."""
