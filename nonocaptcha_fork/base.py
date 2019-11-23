@@ -38,9 +38,11 @@ class Clicker:
         await self.page.mouse.move(
             random.uniform(0, 800),
             random.uniform(0, 600),
-            steps=100
+            steps=int(random.uniform(200, 500))
         )
-        await self.page.mouse.move(bb["x"], bb["y"], steps=100)
+        await self.page.mouse.move(
+            bb["x"], bb["y"], steps=int(random.uniform(200, 500))
+        )
         await button.hover()
         await asyncio.sleep(random.uniform(1, 3))
         click_delay = random.uniform(30, 170)
